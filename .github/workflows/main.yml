@@ -42,3 +42,8 @@ jobs:
     - name: analize with sonarcloud
       run: mvn verify sonar:sonar -Dsonar.projectKey=java-ci -Dsonar.organization=rajat-sharmaa -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
       
+    - name: docker image
+      uses: ripplr-io/docr-docker-publish@v1
+      with:
+       dockerfile: /apache/Dockerfile
+       docker_build_context: .
