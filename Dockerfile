@@ -1,5 +1,5 @@
 
-FROM ubuntu:alpine
+FROM ubuntu:latest
 RUN apt update -y
 RUN apt install –y apache2-utils 
 RUN apt install –y apache2
