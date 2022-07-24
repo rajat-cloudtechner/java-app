@@ -5,8 +5,6 @@ on:
   push:
     branches: [ master ]
     
-    paths: 
-      - /home/runner/work/java-app/java-app/apache/Dockerfile
 jobs:
   
   build:
