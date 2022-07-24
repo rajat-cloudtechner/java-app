@@ -62,7 +62,7 @@ jobs:
         ECR_REPOSITORY: apache-registry
         IMAGE_TAG: apache_image
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG /home/runner/work/java-app/java-app/rajat
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f /home/runner/work/java-app/java-app/rajat .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
     
