@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-RUN apt-get -y update &amp;&amp; apt-get -y upgrade
+RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y install openjdk-8-jdk wget
 RUN apt-get -y install curl
 RUN mkdir /usr/local/tomcat
