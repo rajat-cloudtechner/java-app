@@ -39,10 +39,7 @@ jobs:
       run: |
         cd target
         ls
-        
-    - name: copying war file
-      run: cp /home/runner/work/java-app/java-app/target/java-tomcat-maven-example.war /home/runner/work/java-app/java-app/docker_deploy/
-        
+      
     - name: analize with sonarcloud
       run: mvn verify sonar:sonar -Dsonar.projectKey=java-ci -Dsonar.organization=rajat-sharmaa -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
