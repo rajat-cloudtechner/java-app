@@ -62,7 +62,7 @@ jobs:
         IMAGE_TAG: apache_image
       run: |
         pwd && ls -R
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f home/runner/work/java-app/java-app/apache/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
     - name: Build, tag, and push tomcat image to Amazon ECR
@@ -71,5 +71,5 @@ jobs:
         ECR_REPOSITORY: tomcat-registory
         IMAGE_TAG: tomcat_image
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f home/runner/work/java-app/java-app/tomcat/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
