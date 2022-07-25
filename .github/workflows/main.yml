@@ -41,7 +41,7 @@ jobs:
         ls
         
     - name: copying war file
-      run: cp /home/runner/work/java-app/java-app/target/java-tomcat-maven-example.war /home/runner/work/java-app/java-app/docker_deploy/test.war
+      run: cp /home/runner/work/java-app/java-app/target/java-tomcat-maven-example.war /home/runner/work/java-app/java-app/docker_deploy/
         
     - name: analize with sonarcloud
       run: mvn verify sonar:sonar -Dsonar.projectKey=java-ci -Dsonar.organization=rajat-sharmaa -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Build, tag, and push apache image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: apache-registry
@@ -69,7 +69,7 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f /home/runner/work/java-app/java-app/apache/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Build, tag, and push tomcat image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: tomcat-registory
