@@ -34,6 +34,9 @@ jobs:
 
     - name: list the current directory
       run: ls -a
+      
+    - name: whats in .dockerignore
+      run: cat .dockerignore
 
     - name: what is in target folder
       run: |
