@@ -43,8 +43,6 @@ jobs:
     - name: analize with sonarcloud
       run: mvn verify sonar:sonar -Dsonar.projectKey=java-ci -Dsonar.organization=rajat-sharmaa -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
-    - name: Check out code
-      uses: actions/checkout@v2
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
