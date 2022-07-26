@@ -20,6 +20,55 @@ jobs:
         distribution: 'temurin'
         cache: maven
  
+    - name: compile
+      run: mvn clean install
+ 
+    - name: package
+      run: mvn package
+ 
+    - name: unit test
+      run: mvn test
+ 
+    - name: working directory
+      run: pwd
+ 
+    - name: list the current directory
+      run: ls -a
+
+    - name: what is in target folder
+      run: |
+        cd target
+        ls
+    - name: analize with sonarcloud
+      run: mvn verify sonar:sonar -Dsonar.projectKey=java-ci -Dsonar.organization=rajat-sharmaa -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+ 
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+ 
+    - name: Login to Amazn ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+ 
+    - name: Build, tag, and push apache image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: apache-registry
+        IMAGE_TAG: apache_image
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f /home/runner/work/java-app/java-app/apache/Dockerfile .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    - name: Build, tag, and push tomcat image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: tomcat-registory
+        IMAGE_TAG: tomcat_image
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f /home/runner/work/java-app/java-app/tomcat/Dockerfile .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
     
         
     - name: Deployment
@@ -31,5 +80,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         last_ssh: | 
                 sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
-                sudo docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache
+                sudo docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image
                 sudo docker run -itd -p 80:80 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry 
