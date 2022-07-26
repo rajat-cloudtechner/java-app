@@ -69,9 +69,21 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f /home/runner/work/java-app/java-app/tomcat/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+    - name: Deploy tomcat to private instance
+      uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
+      with:
+        host: 18.208.163.244
+        port: 22
+        user: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        last_ssh: | 
+                sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
+                sudo docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/tomcat-registory:tomcat_image
+                sudo docker run -i -t -d -p 8080:8080 323922828731.dkr.ecr.us-east-1.amazonaws.com/tomcat-registory:tomcat_image 
     
         
-    - name: Deployment
+    - name: Deploy apache to public instance
       uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
       with:
         host: 18.208.163.244
@@ -81,4 +93,4 @@ jobs:
         last_ssh: | 
                 sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
                 sudo docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image
-                sudo docker run -itd -p 80:80 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image
+                sudo docker run -i -t -d -p 80:80 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image
