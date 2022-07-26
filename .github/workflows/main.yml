@@ -71,3 +71,15 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f /home/runner/work/java-app/java-app/tomcat/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+    - name: Deployment
+      uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
+      with:
+        host: 44.204.73.89
+        port: 22
+        user: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        last_ssh: | 
+                aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
+                docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registory:apache_image
+                docker run -itd -p 80:80 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry 
