@@ -73,7 +73,7 @@ jobs:
     - name: Deploy tomcat to private instance
       uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
       with:
-        host: 18.208.163.244
+        host: 10.0.2.42
         port: 22
         user: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
