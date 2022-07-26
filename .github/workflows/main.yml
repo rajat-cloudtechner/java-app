@@ -80,6 +80,6 @@ jobs:
         user: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         last_ssh: | 
-                docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 323922828731.dkr.ecr.us-east-1.amazonaws.com
-                docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registory:apache_image
+                aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
+                docker push 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:latest
                 docker run -itd -p 80:80 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry 
