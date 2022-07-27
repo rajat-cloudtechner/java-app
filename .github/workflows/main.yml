@@ -73,7 +73,7 @@ jobs:
     - name: Deploy apache to public instance
       uses: appleboy/ssh-action@master
       with:
-        host: 18.208.163.244
+        host: 52.90.189.128
         port: 22
         user: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -87,11 +87,11 @@ jobs:
     - name: deploy tomcat image to private ec2
       uses: appleboy/ssh-action@master
       with:
-        host: 10.0.2.42
+        host: 10.0.2.207
         username: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
-        proxy_host: 18.208.163.244
+        proxy_host: 52.90.189.128
         proxy_username: ubuntu
         proxy_key: ${{ secrets.SSH_PRIVATE_KEY }}
         proxy_port: 22
