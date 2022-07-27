@@ -87,11 +87,11 @@ jobs:
       with:
         host: 10.0.2.42
         username: ubuntu
-        key: ${{ secrets.KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         proxy_host: 18.208.163.244
         proxy_username: ubuntu
-        proxy_key: ${{ secrets.KEY }}
+        proxy_key: ${{ secrets.SSH_PRIVATE_KEY }}
         proxy_port: 22
         script: |
           sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
