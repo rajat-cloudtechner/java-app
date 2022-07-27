@@ -75,7 +75,7 @@ jobs:
       with:
         host: ${{ secrets.PUBLIC_IP }}
         port: ${{ secrets.PORT }}
-        user: ${{ secrets.USERNAME }}
+        username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
             sudo aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
