@@ -84,7 +84,7 @@ jobs:
           sudo aws configure set output json
           sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
           sudo docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image
-          sudo docker run -i -t -d -p 8080:8080 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image
+          sudo docker run -i -t -d -p 8080:8080 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image sh
 
     
             
@@ -106,4 +106,4 @@ jobs:
           sudo aws configure set output json
           sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
           sudo docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/tomcat-registory:tomcat_image
-          sudo docker run -i -t -d -p 8080:8080 323922828731.dkr.ecr.us-east-1.amazonaws.com/tomcat-registory:tomcat_image
+          sudo docker run -i -t -d -p 8080:8080 323922828731.dkr.ecr.us-east-1.amazonaws.com/tomcat-registory:tomcat_image sh
