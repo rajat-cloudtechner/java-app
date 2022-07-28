@@ -84,6 +84,7 @@ jobs:
           sudo aws configure set region "us-east-1"
           sudo aws configure set output json
           sudo docker stop apache
+          sudo docker rm apache
           sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
           sudo docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image
           sudo docker run -i -t -d -p 80:80 --name apache 323922828731.dkr.ecr.us-east-1.amazonaws.com/apache-registry:apache_image sh
@@ -108,6 +109,7 @@ jobs:
           sudo aws configure set region "us-east-1"
           sudo aws configure set output json
           sudo docker stop tomcat
+          sudo docker rm tomcat
           sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 323922828731.dkr.ecr.us-east-1.amazonaws.com
           sudo docker pull 323922828731.dkr.ecr.us-east-1.amazonaws.com/tomcat-registory:tomcat_image
           sudo docker run -i -t -d -p 8080:8080 --name tomcat 323922828731.dkr.ecr.us-east-1.amazonaws.com/tomcat-registory:tomcat_image sh
