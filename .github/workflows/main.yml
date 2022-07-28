@@ -70,7 +70,7 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f /home/runner/work/java-app/java-app/tomcat/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
      
-    - name: deploy apache image to private ec2
+    - name: Deploy apache image to public ec2
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.PUBLIC_IP}}
@@ -88,7 +88,7 @@ jobs:
 
     
             
-    - name: deploy tomcat image to private ec2
+    - name: Deploy tomcat image to private ec2
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.PRIVATE_IP}}
